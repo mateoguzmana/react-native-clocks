@@ -11,6 +11,7 @@
     "start": "expo start"
   },
   "dependencies": {
+    "@shopify/react-native-skia": "^0.1.149",
     "expo": "^45.0.0",
     "expo-splash-screen": "~0.15.1",
     "react": "17.0.2",
@@ -21,7 +22,7 @@
   "devDependencies": {
     "@babel/core": "^7.12.9",
     "@babel/runtime": "^7.9.6",
-    "@types/react": "~17.0.21",
+    "@types/react": "17.0.21",
     "babel-loader": "^8.2.5",
     "babel-plugin-module-resolver": "^4.0.0",
     "babel-preset-expo": "~9.1.0",
