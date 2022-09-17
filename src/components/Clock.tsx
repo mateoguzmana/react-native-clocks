@@ -107,19 +107,19 @@ export function Clock() {
         </Group>
 
         {new Array(NUMBER_OF_HOURS).fill(0).map((_, index) => {
-          var degToMin = 360 / 60; // 6
-          var minDeg = 256 * degToMin; // this will tell us how many degrees around the circle the minutes are
-          var minRad = minDeg * (Math.PI / 180); // convert to radians
-          var x = index * Math.cos(minRad); // cos is the x coord, while sin is the y coord
-          var y = index * Math.sin(minRad);
+          const x =
+            (R / 1.1) * Math.cos(Math.PI / -2 + (2 * index * Math.PI) / 12) +
+            (R * 0.9 + 5);
+          const y =
+            (R / 1.1) * Math.sin(Math.PI / -2 + (2 * index * Math.PI) / 12) +
+            (R * 0.9 + 20);
 
-          console.log({ x, y });
           return (
             <Text
               font={font}
-              y={R}
-              x={R + 100}
-              text={`${index}`}
+              y={y}
+              x={x}
+              text={`${index === 0 ? '12' : index}`}
               key={index}
               color="green"
             />
