@@ -1,16 +1,17 @@
-import React, { useEffect, useState } from 'react';
-import { Text } from 'react-native';
+import React, { useEffect, useMemo, useState } from 'react';
 import {
   Canvas,
   Circle,
   Group,
   Line,
   useComputedValue,
+  useFont,
   vec,
+  Text,
 } from '@shopify/react-native-skia';
 
-const width = 256;
-const height = 256;
+const WIDTH = 256;
+const HEIGHT = 256;
 
 const ONE_SECOND_IN_MS = 1000;
 const ONE_MINUTE_IN_MS = ONE_SECOND_IN_MS * 60;
@@ -20,7 +21,13 @@ const SECOND_HANDLE_SIZE = 0.09;
 const MINUTE_HANDLE_SIZE = 0.09;
 const HOUR_HANDLE_SIZE = 0.5;
 
-const R = width / 2;
+const NUMBER_OF_HOURS = 12;
+
+const R = WIDTH / 2;
+
+function pad(n: number) {
+  return n < 10 ? '0' + n : n;
+}
 
 function degreesToRadians(degrees: number) {
   var pi = Math.PI;
@@ -28,12 +35,13 @@ function degreesToRadians(degrees: number) {
 }
 
 export const ClockBase = () => {
+  const font = useFont(require('../fonts/digital-7.ttf'), 20);
+
   const [currentSeconds, setCurrentSeconds] = useState(new Date().getSeconds());
   const [currentMinutes, setCurrentMinutes] = useState(new Date().getMinutes());
   const [currentHours, setCurrentHours] = useState(new Date().getHours());
 
   const secondsRotation = useComputedValue(() => {
-    console.log({ currentSeconds });
     return [{ rotate: degreesToRadians(currentSeconds * 6) }];
   }, [currentSeconds]);
 
@@ -44,6 +52,17 @@ export const ClockBase = () => {
   const hoursRotation = useComputedValue(() => {
     return [{ rotate: degreesToRadians(currentHours * 30) }];
   }, [currentHours]);
+
+  const getFormattedTime = useMemo(
+    () => () => {
+      const hours = pad(new Date().getHours());
+      const minutes = pad(new Date().getMinutes());
+      const seconds = pad(new Date().getSeconds());
+
+      return `${hours}:${minutes}:${seconds}`;
+    },
+    []
+  );
 
   useEffect(() => {
     const increaseSeconds = setInterval(() => {
@@ -65,9 +84,11 @@ export const ClockBase = () => {
     };
   }, [setCurrentSeconds]);
 
+  if (!font) return null;
+
   return (
     <>
-      <Canvas style={{ width, height }}>
+      <Canvas style={{ width: WIDTH, height: HEIGHT }}>
         <Group>
           <Circle cx={R} cy={R} r={R} color="rgba(211,211,211, 0.2)" />
 
@@ -101,14 +122,24 @@ export const ClockBase = () => {
             />
           </Group>
 
-          <Circle cx={R} cy={R} r={R / 50} color="gray" />
-        </Group>
-      </Canvas>
+          <Group origin={{ x: R, y: R }}>
+            {new Array(NUMBER_OF_HOURS).fill(0).map(() => {
+              return null;
+            })}
+          </Group>
 
-      <Text>
-        Current Time:{' '}
-        {`${new Date().getHours()}:${new Date().getMinutes()}:${new Date().getSeconds()}`}
-      </Text>
+          <Circle
+            cx={R}
+            cy={R}
+            r={R / 35}
+            color="gray"
+            style="stroke"
+            strokeWidth={3}
+          />
+        </Group>
+
+        <Text x={0} y={HEIGHT} text={getFormattedTime()} font={font} />
+      </Canvas>
     </>
   );
 };
