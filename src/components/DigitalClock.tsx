@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { Canvas, useFont, Text } from '@shopify/react-native-skia';
 
 const WIDTH = 256;
@@ -9,6 +9,7 @@ function pad(n: number) {
 }
 
 export function DigitalClock() {
+  const [, setCurrentSeconds] = useState(new Date().getSeconds());
   const font = useFont(require('../fonts/digital-7.ttf'), 20);
 
   const getFormattedTime = useMemo(
@@ -21,6 +22,14 @@ export function DigitalClock() {
     },
     []
   );
+
+  useEffect(() => {
+    const increaseSeconds = setInterval(() => {
+      setCurrentSeconds((val) => val + 1);
+    }, 1000);
+
+    return () => clearInterval(increaseSeconds);
+  }, []);
 
   if (!font) return null;
 
