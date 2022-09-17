@@ -1,1 +1,2 @@
-export * from './ClockBase';
+export * from './Clock';
+export * from './DigitalClock';

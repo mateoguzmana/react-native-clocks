@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Canvas,
   Circle,
@@ -7,7 +7,6 @@ import {
   useComputedValue,
   useFont,
   vec,
-  Text,
 } from '@shopify/react-native-skia';
 
 const WIDTH = 256;
@@ -25,16 +24,12 @@ const NUMBER_OF_HOURS = 12;
 
 const R = WIDTH / 2;
 
-function pad(n: number) {
-  return n < 10 ? '0' + n : n;
-}
-
 function degreesToRadians(degrees: number) {
   var pi = Math.PI;
   return degrees * (pi / 180);
 }
 
-export const ClockBase = () => {
+export function Clock() {
   const font = useFont(require('../fonts/digital-7.ttf'), 20);
 
   const [currentSeconds, setCurrentSeconds] = useState(new Date().getSeconds());
@@ -52,17 +47,6 @@ export const ClockBase = () => {
   const hoursRotation = useComputedValue(() => {
     return [{ rotate: degreesToRadians(currentHours * 30) }];
   }, [currentHours]);
-
-  const getFormattedTime = useMemo(
-    () => () => {
-      const hours = pad(new Date().getHours());
-      const minutes = pad(new Date().getMinutes());
-      const seconds = pad(new Date().getSeconds());
-
-      return `${hours}:${minutes}:${seconds}`;
-    },
-    []
-  );
 
   useEffect(() => {
     const increaseSeconds = setInterval(() => {
@@ -137,9 +121,7 @@ export const ClockBase = () => {
             strokeWidth={3}
           />
         </Group>
-
-        <Text x={0} y={HEIGHT} text={getFormattedTime()} font={font} />
       </Canvas>
     </>
   );
-};
+}

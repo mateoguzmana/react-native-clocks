@@ -1,11 +1,13 @@
 import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { ClockBase } from 'react-native-skia-clock';
+import { Clock, DigitalClock } from 'react-native-skia-clock';
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <ClockBase />
+      <Clock />
+
+      <DigitalClock />
     </View>
   );
 }
