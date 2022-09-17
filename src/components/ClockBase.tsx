@@ -1,62 +1,82 @@
-import React from 'react';
-import { Canvas, Circle, ImageSVG, Skia } from '@shopify/react-native-skia';
+import React, { useState } from 'react';
+import { Text } from 'react-native';
+import {
+  Canvas,
+  Circle,
+  Group,
+  Line,
+  useClockValue,
+  useComputedValue,
+  vec,
+} from '@shopify/react-native-skia';
 
 const width = 256;
 const height = 256;
 
-const svg = Skia.SVG.MakeFromString(`<svg width="200" height="200">
-
-<filter id="innerShadow" x="-20%" y="-20%" width="140%" height="140%">
-    <feGaussianBlur in="SourceGraphic" stdDeviation="3" result="blur"/>
-    <feOffset in="blur" dx="2.5" dy="2.5"/>
-</filter>
-
-<g>
-    <circle id="shadow" style="fill:rgba(0,0,0,0.1)" cx="97" cy="100" r="87" filter="url(#innerShadow)"></circle>
-    <circle id="circle" style="stroke: #FFF; stroke-width: 12px; fill:#20B7AF" cx="100" cy="100" r="80"></circle>
-</g>
-<g>
-    <line x1="100" y1="100" x2="100" y2="55" transform="rotate(80 100 100)" style="stroke-width: 3px; stroke: #fffbf9;" id="hourhand">
-        <animatetransform attributeName="transform"
-                          attributeType="XML"
-                          type="rotate"
-                          dur="43200s"
-                          repeatCount="indefinite"/>
-    </line>
-    <line x1="100" y1="100" x2="100" y2="40" style="stroke-width: 4px; stroke: #fdfdfd;" id="minutehand">
-        <animatetransform attributeName="transform"
-                          attributeType="XML"
-                          type="rotate"
-                          dur="3600s"
-                          repeatCount="indefinite"/>
-    </line>
-    <line x1="100" y1="100" x2="100" y2="30" style="stroke-width: 2px; stroke: #C1EFED;" id="secondhand">
-        <animatetransform attributeName="transform"
-                          attributeType="XML"
-                          type="rotate"
-                          dur="60s"
-                          repeatCount="indefinite"/>
-    </line>
-</g>
-<circle id="center" style="fill:#128A86; stroke: #C1EFED; stroke-width: 2px;" cx="100" cy="100" r="3"></circle>
-</svg>`);
+function degreesToRadians(degrees: number) {
+  var pi = Math.PI;
+  return degrees * (pi / 180);
+}
 
 export const ClockBase = () => {
-  const r = width / 2;
-  const innerR = r / 50;
+  const [currentSeconds] = useState(new Date().getSeconds());
+  const clock = useClockValue();
 
-  if (!svg) return null;
+  const secondsRotation = useComputedValue(() => {
+    return [{ rotate: degreesToRadians(clock.current / 100) }];
+  }, [clock]);
+
+  const minutesRotation = useComputedValue(() => {
+    return [{ rotate: degreesToRadians(clock.current / (60 * 60)) }];
+  }, [clock]);
+
+  const hoursRotation = useComputedValue(() => {
+    return [{ rotate: degreesToRadians(clock.current / (60 * 60 * 60)) }];
+  }, [clock]);
+
+  const r = width / 2;
 
   return (
     <>
       <Canvas style={{ width, height }}>
-        <Circle cx={r} cy={r} r={r} color="lightblue" />
-        <Circle cx={r} cy={r} r={innerR} color="black" />
+        <Group>
+          <Circle cx={r} cy={r} r={r} color="rgba(211,211,211, 0.2)" />
+
+          <Group origin={{ x: r, y: r }} transform={secondsRotation}>
+            <Line
+              p1={vec(r, r)}
+              p2={vec(r, 0)}
+              color="red"
+              style="stroke"
+              strokeWidth={4}
+            />
+          </Group>
+
+          <Group origin={{ x: r, y: r }} transform={minutesRotation}>
+            <Line
+              p1={vec(r, r)}
+              p2={vec(r, r * 0.2)}
+              color="green"
+              style="stroke"
+              strokeWidth={4}
+            />
+          </Group>
+
+          <Group origin={{ x: r, y: r }} transform={hoursRotation}>
+            <Line
+              p1={vec(r, r)}
+              p2={vec(r, r * 0.5)}
+              color="blue"
+              style="stroke"
+              strokeWidth={4}
+            />
+          </Group>
+
+          <Circle cx={r} cy={r} r={r / 50} color="black" />
+        </Group>
       </Canvas>
 
-      <Canvas style={{ width, height }}>
-        <ImageSVG svg={svg} x={0} y={0} width={290} height={500} />
-      </Canvas>
+      <Text>Seconds: {currentSeconds}</Text>
     </>
   );
 };
