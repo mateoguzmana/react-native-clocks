@@ -4,6 +4,7 @@ import {
   Circle,
   Group,
   Line,
+  Text,
   useComputedValue,
   useFont,
   vec,
@@ -30,7 +31,7 @@ function degreesToRadians(degrees: number) {
 }
 
 export function Clock() {
-  const font = useFont(require('../fonts/digital-7.ttf'), 20);
+  const font = useFont(require('../fonts/digital-7.ttf'), 30);
 
   const [currentSeconds, setCurrentSeconds] = useState(new Date().getSeconds());
   const [currentMinutes, setCurrentMinutes] = useState(new Date().getMinutes());
@@ -73,54 +74,66 @@ export function Clock() {
   return (
     <>
       <Canvas style={{ width: WIDTH, height: HEIGHT }}>
-        <Group>
-          <Circle cx={R} cy={R} r={R} color="rgba(211,211,211, 0.2)" />
+        <Circle cx={R} cy={R} r={R} color="rgba(211,211,211, 0.2)" />
 
-          <Group origin={{ x: R, y: R }} transform={secondsRotation}>
-            <Line
-              p1={vec(R, R)}
-              p2={vec(R, R * SECOND_HANDLE_SIZE)}
-              color="red"
-              style="stroke"
-              strokeWidth={2}
-            />
-          </Group>
-
-          <Group origin={{ x: R, y: R }} transform={minutesRotation}>
-            <Line
-              p1={vec(R, R)}
-              p2={vec(R, R * MINUTE_HANDLE_SIZE)}
-              color="gray"
-              style="stroke"
-              strokeWidth={4}
-            />
-          </Group>
-
-          <Group origin={{ x: R, y: R }} transform={hoursRotation}>
-            <Line
-              p1={vec(R, R)}
-              p2={vec(R, R * HOUR_HANDLE_SIZE)}
-              color="gray"
-              style="stroke"
-              strokeWidth={4}
-            />
-          </Group>
-
-          <Group origin={{ x: R, y: R }}>
-            {new Array(NUMBER_OF_HOURS).fill(0).map(() => {
-              return null;
-            })}
-          </Group>
-
-          <Circle
-            cx={R}
-            cy={R}
-            r={R / 35}
-            color="gray"
+        <Group origin={{ x: R, y: R }} transform={secondsRotation}>
+          <Line
+            p1={vec(R, R)}
+            p2={vec(R, R * SECOND_HANDLE_SIZE)}
+            color="red"
             style="stroke"
-            strokeWidth={3}
+            strokeWidth={2}
           />
         </Group>
+
+        <Group origin={{ x: R, y: R }} transform={minutesRotation}>
+          <Line
+            p1={vec(R, R)}
+            p2={vec(R, R * MINUTE_HANDLE_SIZE)}
+            color="gray"
+            style="stroke"
+            strokeWidth={4}
+          />
+        </Group>
+
+        <Group origin={{ x: R, y: R }} transform={hoursRotation}>
+          <Line
+            p1={vec(R, R)}
+            p2={vec(R, R * HOUR_HANDLE_SIZE)}
+            color="gray"
+            style="stroke"
+            strokeWidth={4}
+          />
+        </Group>
+
+        {new Array(NUMBER_OF_HOURS).fill(0).map((_, index) => {
+          var degToMin = 360 / 60; // 6
+          var minDeg = 256 * degToMin; // this will tell us how many degrees around the circle the minutes are
+          var minRad = minDeg * (Math.PI / 180); // convert to radians
+          var x = index * Math.cos(minRad); // cos is the x coord, while sin is the y coord
+          var y = index * Math.sin(minRad);
+
+          console.log({ x, y });
+          return (
+            <Text
+              font={font}
+              y={R}
+              x={R + 100}
+              text={`${index}`}
+              key={index}
+              color="green"
+            />
+          );
+        })}
+
+        <Circle
+          cx={R}
+          cy={R}
+          r={R / 35}
+          color="gray"
+          style="stroke"
+          strokeWidth={3}
+        />
       </Canvas>
     </>
   );
