@@ -90,7 +90,7 @@ export function Clock({
   return (
     <Canvas style={{ width: WIDTH, height: HEIGHT }}>
       <Group transform={[{ scale }]}>
-        <ClockFace faceColor={faceColor} faceShape={faceShape} r={R} />
+        <ClockFace faceColor={faceColor} faceShape={faceShape} />
 
         <Group origin={{ x: R, y: R }} transform={secondsRotation}>
           <Line
