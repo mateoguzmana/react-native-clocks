@@ -53,7 +53,7 @@ export function DigitalClock({
     >
       <Text
         y={fontSize * 0.8}
-        x={widthForFullNumbers * 0.125}
+        x={widthForFullNumbers * 0.1}
         text={getFormattedTime()}
         font={font}
         color={fontColor}
