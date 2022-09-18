@@ -1,19 +1,23 @@
-# react-native-skia-clock
-React Native customisable clock built with @shopify/react-native-skia
+<h1 align="center">React Native Clocks 🕑</h1>
+
+<p align="center">React Native customisable clocks built with @shopify/react-native-skia</p>
+
 ## Installation
 
 ```sh
-npm install react-native-skia-clock
+npm install react-native-clocks
 ```
 
 ## Usage
 
 ```js
-import { multiply } from "react-native-skia-clock";
+import { Clock } from 'react-native-clocks';
 
 // ...
 
-const result = await multiply(3, 7);
+export default function App() {
+  return <Clock />;
+}
 ```
 
 ## Contributing

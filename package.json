@@ -1,5 +1,5 @@
 {
-  "name": "react-native-skia-clock",
+  "name": "react-native-clocks",
   "version": "0.0.0",
   "description": "test",
   "main": "lib/commonjs/index",
@@ -13,7 +13,7 @@
     "android",
     "ios",
     "cpp",
-    "react-native-skia-clock.podspec",
+    "react-native-clocks.podspec",
     "!lib/typescript/example",
     "!android/build",
     "!ios/build",
@@ -35,13 +35,13 @@
     "ios",
     "android"
   ],
-  "repository": "https://github.com/mateoguzmana/react-native-skia-clock",
+  "repository": "https://github.com/mateoguzmana/react-native-clocks",
   "author": "Mateo Guzmán <mateo.guzmanalvarez@gmail.com> (https://github.com/mateoguzmana)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/mateoguzmana/react-native-skia-clock/issues"
+    "url": "https://github.com/mateoguzmana/react-native-clocks/issues"
   },
-  "homepage": "https://github.com/mateoguzmana/react-native-skia-clock#readme",
+  "homepage": "https://github.com/mateoguzmana/react-native-clocks#readme",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },

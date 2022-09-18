@@ -2,7 +2,7 @@
   "compilerOptions": {
     "baseUrl": "./",
     "paths": {
-      "react-native-skia-clock": ["./src/index"]
+      "react-native-clocks": ["./src/index"]
     },
     "allowUnreachableCode": false,
     "allowUnusedLabels": false,

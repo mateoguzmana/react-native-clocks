@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { Clock, DigitalClock } from 'react-native-skia-clock';
+import { Clock, DigitalClock } from 'react-native-clocks';
 
 export default function App() {
   return (

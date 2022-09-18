@@ -1,10 +1,10 @@
 {
-  "name": "react-native-skia-clock-example",
+  "name": "react-native-clocks-example",
   "displayName": "SkiaClock Example",
   "expo": {
-    "name": "react-native-skia-clock-example",
-    "slug": "react-native-skia-clock-example",
-    "description": "Example app for react-native-skia-clock",
+    "name": "react-native-clocks-example",
+    "slug": "react-native-clocks-example",
+    "description": "Example app for react-native-clocks",
     "privacy": "public",
     "version": "1.0.0",
     "platforms": [
