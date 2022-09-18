@@ -7,7 +7,9 @@ export default function App() {
     <View style={styles.container}>
       <Clock />
 
-      <DigitalClock />
+      <View style={styles.digitalClock}>
+        <DigitalClock />
+      </View>
     </View>
   );
 }
@@ -15,6 +17,11 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  digitalClock: {
+    height: 200,
     alignItems: 'center',
     justifyContent: 'center',
   },
