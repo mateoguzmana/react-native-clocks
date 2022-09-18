@@ -1,6 +1,6 @@
 <h1 align="center">React Native Clocks 🕑</h1>
 
-<p align="center">React Native customisable clocks built with @shopify/react-native-skia</p>
+<p align="center">React Native customisable clocks built with <a href="https://github.com/Shopify/react-native-skia" target="_blank">@shopify/react-native-skia</a></p>
 
 ![React Native Clocks](https://user-images.githubusercontent.com/20783123/190899375-25184251-5108-47a1-811e-bd5afb0a615e.gif)
 
