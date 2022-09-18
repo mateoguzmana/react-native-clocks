@@ -1,29 +1,34 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Canvas, useFont, Text } from '@shopify/react-native-skia';
 
-const WIDTH = 256;
-const HEIGHT = 256;
+const DEFAULT_SIZE = 256;
 
 function pad(n: number) {
   return n < 10 ? '0' + n : n;
 }
 
-export function DigitalClock() {
+const getFormattedTime = () => {
+  const hours = pad(new Date().getHours());
+  const minutes = pad(new Date().getMinutes());
+  const seconds = pad(new Date().getSeconds());
+
+  return `${hours}:${minutes}:${seconds}`;
+};
+
+export interface DigitalClockProps {
+  width?: number;
+  height?: number;
+}
+
+export function DigitalClock({
+  width = DEFAULT_SIZE,
+  height = DEFAULT_SIZE,
+}: DigitalClockProps) {
   const [, setCurrentSeconds] = useState(new Date().getSeconds());
   const font = useFont(require('../fonts/digital-7.ttf'), 50);
 
-  const getFormattedTime = useMemo(
-    () => () => {
-      const hours = pad(new Date().getHours());
-      const minutes = pad(new Date().getMinutes());
-      const seconds = pad(new Date().getSeconds());
-
-      return `${hours}:${minutes}:${seconds}`;
-    },
-    []
-  );
-
   useEffect(() => {
+    // this interval is purely to force the update of the clock every second
     const increaseSeconds = setInterval(() => {
       setCurrentSeconds((val) => val + 1);
     }, 1000);
@@ -34,10 +39,8 @@ export function DigitalClock() {
   if (!font) return null;
 
   return (
-    <>
-      <Canvas style={{ width: WIDTH, height: HEIGHT }}>
-        <Text x={0} y={HEIGHT} text={getFormattedTime()} font={font} />
-      </Canvas>
-    </>
+    <Canvas style={{ width, height }}>
+      <Text x={0} y={height} text={getFormattedTime()} font={font} />
+    </Canvas>
   );
 }
