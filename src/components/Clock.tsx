@@ -4,6 +4,7 @@ import {
   Circle,
   Group,
   Line,
+  RoundedRect,
   Text,
   useComputedValue,
   useFont,
@@ -30,11 +31,22 @@ function degreesToRadians(degrees: number) {
   return degrees * (pi / 180);
 }
 
-export interface ClockProps {
-  scale?: number;
+export enum FaceShape {
+  Circle = 'Circle',
+  Square = 'Square',
 }
 
-export function Clock({ scale = 1 }: ClockProps) {
+export interface ClockProps {
+  scale?: number;
+  faceShape?: FaceShape;
+  faceColor?: string;
+}
+
+export function Clock({
+  scale = 1,
+  faceShape = FaceShape.Circle,
+  faceColor = 'rgba(211,211,211, 0.2)',
+}: ClockProps) {
   const font = useFont(require('../fonts/digital-7.ttf'), 30);
 
   const [currentSeconds, setCurrentSeconds] = useState(new Date().getSeconds());
@@ -78,7 +90,7 @@ export function Clock({ scale = 1 }: ClockProps) {
   return (
     <Canvas style={{ width: WIDTH, height: HEIGHT }}>
       <Group transform={[{ scale }]}>
-        <Circle cx={R} cy={R} r={R} color="rgba(211,211,211, 0.2)" />
+        <ClockFace faceColor={faceColor} faceShape={faceShape} r={R} />
 
         <Group origin={{ x: R, y: R }} transform={secondsRotation}>
           <Line
@@ -145,4 +157,28 @@ export function Clock({ scale = 1 }: ClockProps) {
       </Group>
     </Canvas>
   );
+}
+
+export interface ClockFaceProps
+  extends Pick<ClockProps, 'faceColor' | 'faceShape'> {}
+
+export function ClockFace({ faceColor, faceShape }: ClockFaceProps) {
+  if (faceShape === FaceShape.Circle) {
+    return <Circle cx={R} cy={R} r={R} color={faceColor} />;
+  }
+
+  if (faceShape === FaceShape.Square) {
+    return (
+      <RoundedRect
+        x={0}
+        y={0}
+        width={WIDTH}
+        height={HEIGHT}
+        r={4}
+        color={faceColor}
+      />
+    );
+  }
+
+  return null;
 }
