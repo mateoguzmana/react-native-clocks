@@ -35,6 +35,10 @@ export default function App() {
 }
 ```
 
+## Library Under Construction 🚧
+
+This library is still under construction, more customisable elements for the clocks are coming soon.
+
 ## Contributing
 
 See the [contributing guide](CONTRIBUTING.md) to learn how to contribute to the repository and the development workflow.
