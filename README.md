@@ -5,10 +5,13 @@
 ## Installation
 
 ```sh
-npm install react-native-clocks
+yarn add react-native-clocks
+yarn add @shopify/react-native-skia
 ```
 
 ## Usage
+
+Analog:
 
 ```js
 import { Clock } from 'react-native-clocks';
@@ -17,6 +20,18 @@ import { Clock } from 'react-native-clocks';
 
 export default function App() {
   return <Clock />;
+}
+```
+
+Digital:
+
+```js
+import { DigitalClock } from 'react-native-clocks';
+
+// ...
+
+export default function App() {
+  return <DigitalClock />;
 }
 ```
 
