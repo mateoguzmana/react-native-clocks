@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Canvas, useFont, Text } from '@shopify/react-native-skia';
 
-const DEFAULT_WIDTH = 160;
 const DEFAULT_FONT_SIZE = 50;
 
 function pad(n: number) {
@@ -17,16 +16,15 @@ const getFormattedTime = () => {
 };
 
 export interface DigitalClockProps {
-  width?: number;
   fontSize?: number;
 }
 
 export function DigitalClock({
-  width = DEFAULT_WIDTH,
   fontSize = DEFAULT_FONT_SIZE,
 }: DigitalClockProps) {
   const [, setCurrentSeconds] = useState(new Date().getSeconds());
   const font = useFont(require('../fonts/digital-7.ttf'), fontSize);
+  const text = getFormattedTime();
 
   useEffect(() => {
     // this interval is purely to force the update of the clock every second
@@ -39,8 +37,10 @@ export function DigitalClock({
 
   if (!font) return null;
 
+  const textWidth = font.getTextWidth(text);
+
   return (
-    <Canvas style={{ width, height: fontSize }}>
+    <Canvas style={{ width: textWidth, height: fontSize }}>
       <Text y={fontSize * 0.8} text={getFormattedTime()} font={font} />
     </Canvas>
   );
