@@ -10,7 +10,7 @@ function pad(n: number) {
 
 export function DigitalClock() {
   const [, setCurrentSeconds] = useState(new Date().getSeconds());
-  const font = useFont(require('../fonts/digital-7.ttf'), 20);
+  const font = useFont(require('../fonts/digital-7.ttf'), 50);
 
   const getFormattedTime = useMemo(
     () => () => {
