@@ -76,75 +76,73 @@ export function Clock({ scale = 1 }: ClockProps) {
   if (!font) return null;
 
   return (
-    <>
-      <Canvas style={{ width: WIDTH, height: HEIGHT }}>
-        <Group transform={[{ scale }]}>
-          <Circle cx={R} cy={R} r={R} color="rgba(211,211,211, 0.2)" />
+    <Canvas style={{ width: WIDTH, height: HEIGHT }}>
+      <Group transform={[{ scale }]}>
+        <Circle cx={R} cy={R} r={R} color="rgba(211,211,211, 0.2)" />
 
-          <Group origin={{ x: R, y: R }} transform={secondsRotation}>
-            <Line
-              p1={vec(R, R)}
-              p2={vec(R, R * SECOND_HANDLE_SIZE)}
-              color="red"
-              style="stroke"
-              strokeWidth={2}
-            />
-          </Group>
-
-          <Group origin={{ x: R, y: R }} transform={minutesRotation}>
-            <Line
-              p1={vec(R, R)}
-              p2={vec(R, R * MINUTE_HANDLE_SIZE)}
-              color="gray"
-              style="stroke"
-              strokeWidth={4}
-            />
-          </Group>
-
-          <Group origin={{ x: R, y: R }} transform={hoursRotation}>
-            <Line
-              p1={vec(R, R)}
-              p2={vec(R, R * HOUR_HANDLE_SIZE)}
-              color="gray"
-              style="stroke"
-              strokeWidth={4}
-            />
-          </Group>
-
-          <Group origin={{ x: R, y: R }} transform={[{ scale: 0.85 }]}>
-            {new Array(NUMBER_OF_HOURS).fill(0).map((_, index) => {
-              // deviation to adjust the difference after the calculation
-              const dx = R * -0.06;
-              const dy = R * 0.08;
-
-              const angle = Math.PI / -2 + (2 * index * Math.PI) / 12;
-
-              const x = R * Math.cos(angle) + (R + dx);
-              const y = R * Math.sin(angle) + (R + dy);
-
-              return (
-                <Text
-                  font={font}
-                  y={y}
-                  x={x}
-                  text={`${index === 0 ? '12' : index}`}
-                  key={index}
-                  color="gray"
-                />
-              );
-            })}
-          </Group>
-
-          <Circle
-            cx={R}
-            cy={R}
-            r={R / 35}
-            color="gray"
+        <Group origin={{ x: R, y: R }} transform={secondsRotation}>
+          <Line
+            p1={vec(R, R)}
+            p2={vec(R, R * SECOND_HANDLE_SIZE)}
+            color="red"
             style="stroke"
-            strokeWidth={3}
+            strokeWidth={2}
           />
         </Group>
-      </Canvas>
-    </>
+
+        <Group origin={{ x: R, y: R }} transform={minutesRotation}>
+          <Line
+            p1={vec(R, R)}
+            p2={vec(R, R * MINUTE_HANDLE_SIZE)}
+            color="gray"
+            style="stroke"
+            strokeWidth={4}
+          />
+        </Group>
+
+        <Group origin={{ x: R, y: R }} transform={hoursRotation}>
+          <Line
+            p1={vec(R, R)}
+            p2={vec(R, R * HOUR_HANDLE_SIZE)}
+            color="gray"
+            style="stroke"
+            strokeWidth={4}
+          />
+        </Group>
+
+        <Group origin={{ x: R, y: R }} transform={[{ scale: 0.85 }]}>
+          {new Array(NUMBER_OF_HOURS).fill(0).map((_, index) => {
+            // deviation to adjust the difference after the calculation
+            const dx = R * -0.06;
+            const dy = R * 0.08;
+
+            const angle = Math.PI / -2 + (2 * index * Math.PI) / 12;
+
+            const x = R * Math.cos(angle) + (R + dx);
+            const y = R * Math.sin(angle) + (R + dy);
+
+            return (
+              <Text
+                font={font}
+                y={y}
+                x={x}
+                text={`${index === 0 ? '12' : index}`}
+                key={index}
+                color="gray"
+              />
+            );
+          })}
+        </Group>
+
+        <Circle
+          cx={R}
+          cy={R}
+          r={R / 35}
+          color="gray"
+          style="stroke"
+          strokeWidth={3}
+        />
+      </Group>
+    </Canvas>
   );
 }

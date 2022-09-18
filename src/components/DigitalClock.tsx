@@ -7,13 +7,13 @@ function pad(n: number) {
   return n < 10 ? '0' + n : n;
 }
 
-const getFormattedTime = () => {
+function getFormattedTime() {
   const hours = pad(new Date().getHours());
   const minutes = pad(new Date().getMinutes());
   const seconds = pad(new Date().getSeconds());
 
   return `${hours}:${minutes}:${seconds}`;
-};
+}
 
 export interface DigitalClockProps {
   fontSize?: number;
