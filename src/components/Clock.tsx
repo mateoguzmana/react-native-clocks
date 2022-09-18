@@ -106,25 +106,32 @@ export function Clock() {
           />
         </Group>
 
-        {new Array(NUMBER_OF_HOURS).fill(0).map((_, index) => {
-          const x =
-            (R / 1.1) * Math.cos(Math.PI / -2 + (2 * index * Math.PI) / 12) +
-            (R * 0.9 + 5);
-          const y =
-            (R / 1.1) * Math.sin(Math.PI / -2 + (2 * index * Math.PI) / 12) +
-            (R * 0.9 + 20);
+        <Group origin={{ x: R, y: R }}>
+          {new Array(NUMBER_OF_HOURS).fill(0).map((_, index) => {
+            const origin = R / 1.2;
+            const numbersRadius = R * 0.9;
 
-          return (
-            <Text
-              font={font}
-              y={y}
-              x={x}
-              text={`${index === 0 ? '12' : index}`}
-              key={index}
-              color="green"
-            />
-          );
-        })}
+            // deviation to adjust the difference after the calculation
+            const dx = R * 0.04;
+            const dy = R * 0.17;
+
+            const angle = Math.PI / -2 + (2 * index * Math.PI) / 12;
+
+            const x = origin * Math.cos(angle) + (numbersRadius + dx);
+            const y = origin * Math.sin(angle) + (numbersRadius + dy);
+
+            return (
+              <Text
+                font={font}
+                y={y}
+                x={x}
+                text={`${index === 0 ? '12' : index}`}
+                key={index}
+                color="gray"
+              />
+            );
+          })}
+        </Group>
 
         <Circle
           cx={R}
