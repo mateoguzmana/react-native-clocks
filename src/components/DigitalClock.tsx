@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
+import { StyleSheet, View } from 'react-native';
 import { Canvas, useFont, Text } from '@shopify/react-native-skia';
 
 const DEFAULT_FONT_SIZE = 50;
-const PADDING = 20;
+const PADDING = 40;
 
 function pad(n: number) {
   return n < 10 ? '0' + n : n;
@@ -41,23 +42,33 @@ export function DigitalClock({
 
   if (!font) return null;
 
+  const text = getFormattedTime();
+  const textWidth = font.getTextWidth(text);
   const widthForFullNumbers = font.getTextWidth('00:00:00');
 
   return (
-    <Canvas
-      style={{
-        width: widthForFullNumbers + PADDING,
-        height: fontSize,
-        backgroundColor,
-      }}
+    <View
+      style={[
+        styles.container,
+        { backgroundColor, width: widthForFullNumbers + PADDING },
+      ]}
     >
-      <Text
-        y={fontSize * 0.8}
-        x={widthForFullNumbers * 0.1}
-        text={getFormattedTime()}
-        font={font}
-        color={fontColor}
-      />
-    </Canvas>
+      <Canvas style={{ width: textWidth, height: fontSize }}>
+        <Text
+          y={fontSize * 0.8}
+          x={0}
+          text={text}
+          font={font}
+          color={fontColor}
+        />
+      </Canvas>
+    </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+  },
+});
