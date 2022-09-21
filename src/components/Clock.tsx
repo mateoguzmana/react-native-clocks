@@ -1,13 +1,10 @@
-import React, {
-  ReactChild,
-  useEffect,
-  useState,
-} from 'react';
+import React, { ReactChild, useEffect, useState } from 'react';
 import {
   Canvas,
   Circle,
   DiscretePathEffect,
   Group,
+  interpolateColors,
   Line,
   LinearGradient,
   RoundedRect,
@@ -64,6 +61,16 @@ export function Clock({
   const rotation = useSpring(animatedSensor.sensor.value.roll, {
     velocity: 200,
   });
+
+  const secondHandlerColor = interpolateColors(
+    rotation.current,
+    [0.5, 1],
+    ['#1F4690', '#EB1D36']
+  );
+
+  const vectorAnimated = useComputedValue(() => {
+    return vec(WIDTH, -rotation.current * 250);
+  }, [rotation]);
 
   const rotationTransform = useComputedValue(() => {
     return [{ rotate: -rotation.current }];
@@ -123,8 +130,8 @@ export function Clock({
           <ClockFace faceColor={faceColor} faceShape={faceShape}>
             <LinearGradient
               start={vec(0, 0)}
-              end={vec(WIDTH, HEIGHT)}
-              colors={['#25316D', '#EB1D36']}
+              end={vectorAnimated}
+              colors={['#1F4690', '#EB1D36']}
             />
           </ClockFace>
 
@@ -132,10 +139,11 @@ export function Clock({
             <Line
               p1={vec(R, R)}
               p2={vec(R, R * SECOND_HANDLE_SIZE)}
-              color="red"
+              color={secondHandlerColor}
               style="stroke"
               strokeWidth={2}
             />
+
             <DiscretePathEffect
               length={1}
               deviation={secondHandlerEffect.current}
