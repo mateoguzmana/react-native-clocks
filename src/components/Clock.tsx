@@ -50,7 +50,7 @@ export interface ClockProps {
 export function Clock({
   scale = 1,
   faceShape = FaceShape.Circle,
-  faceColor = 'rgba(211,211,211, 0.2)',
+  faceColor = 'rgba(211,211,211, 0.7)',
 }: ClockProps) {
   const font = useFont(require('../fonts/digital-7.ttf'), 30);
 
@@ -65,11 +65,11 @@ export function Clock({
   const secondHandlerColor = interpolateColors(
     rotation.current,
     [0.5, 1],
-    ['#1F4690', '#EB1D36']
+    ['#1F4690', '#0F0E0E']
   );
 
   const vectorAnimated = useComputedValue(() => {
-    return vec(WIDTH, -rotation.current * 250);
+    return vec(WIDTH / 1.8, -rotation.current * 100);
   }, [rotation]);
 
   const rotationTransform = useComputedValue(() => {
@@ -131,7 +131,7 @@ export function Clock({
             <LinearGradient
               start={vec(0, 0)}
               end={vectorAnimated}
-              colors={['#1F4690', '#EB1D36']}
+              colors={['#1F4690', '#0F0E0E']}
             />
           </ClockFace>
 
@@ -146,7 +146,7 @@ export function Clock({
 
             <DiscretePathEffect
               length={1}
-              deviation={secondHandlerEffect.current}
+              deviation={secondHandlerEffect.current / 2}
             />
           </Group>
 
