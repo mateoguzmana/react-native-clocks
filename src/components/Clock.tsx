@@ -1,5 +1,6 @@
 import React, { ReactChild, useEffect, useState } from 'react';
 import {
+  BlurMask,
   Canvas,
   Circle,
   DiscretePathEffect,
@@ -128,11 +129,14 @@ export function Clock({
       >
         <Group transform={[{ scale }]}>
           <ClockFace faceColor={faceColor} faceShape={faceShape}>
-            <LinearGradient
-              start={vec(0, 0)}
-              end={vectorAnimated}
-              colors={['#1F4690', '#0F0E0E']}
-            />
+            <>
+              <LinearGradient
+                start={vec(0, 0)}
+                end={vectorAnimated}
+                colors={['#1F4690', '#0F0E0E']}
+              />
+              <BlurMask blur={20} style="inner" />
+            </>
           </ClockFace>
 
           <Group origin={{ x: R, y: R }} transform={secondsRotation}>
