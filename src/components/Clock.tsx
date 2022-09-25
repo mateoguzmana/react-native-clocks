@@ -107,7 +107,7 @@ export function Clock({
 
   return (
     <Canvas style={{ width: WIDTH, height: HEIGHT }}>
-      <Group transform={[{ scale }]}>
+      <Group transform={[{ scale }]} origin={{ x: WIDTH / 2, y: HEIGHT / 2 }}>
         <ClockFace faceShape={faceShape}>
           <>
             <LinearGradient
