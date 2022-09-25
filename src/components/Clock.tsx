@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { ReactChild, useEffect, useState } from 'react';
 import {
+  BlurMask,
   Canvas,
   Circle,
   Group,
   Line,
+  LinearGradient,
   RoundedRect,
   Text,
   useComputedValue,
@@ -26,6 +28,12 @@ const NUMBER_OF_HOURS = 12;
 
 const R = WIDTH / 2;
 
+export const ClockThemes: Record<string, Array<string>> = {
+  Dark: ['#1F4690', '#0F0E0E'],
+  Fire: ['#E02401', '#F78812', '#E02401'],
+  Default: ['#fff'],
+};
+
 function degreesToRadians(degrees: number) {
   var pi = Math.PI;
   return degrees * (pi / 180);
@@ -39,13 +47,23 @@ export enum FaceShape {
 export interface ClockProps {
   scale?: number;
   faceShape?: FaceShape;
+  /**
+   * @deprecated Use theme instead. To have a clock monocolor just pass the color as ['#121212'] for example.
+   */
   faceColor?: string;
+  /**
+   * To have a clock monocolor just pass the color as ['#121212'] for example.
+   */
+  theme?: Array<string>;
+  faceBlurMask?: number;
 }
 
 export function Clock({
   scale = 1,
   faceShape = FaceShape.Circle,
-  faceColor = 'rgba(211,211,211, 0.2)',
+  theme = ClockThemes.Default,
+  faceColor = undefined,
+  faceBlurMask = 10,
 }: ClockProps) {
   const font = useFont(require('../fonts/digital-7.ttf'), 30);
 
@@ -90,7 +108,18 @@ export function Clock({
   return (
     <Canvas style={{ width: WIDTH, height: HEIGHT }}>
       <Group transform={[{ scale }]}>
-        <ClockFace faceColor={faceColor} faceShape={faceShape} />
+        <ClockFace faceShape={faceShape}>
+          <>
+            <LinearGradient
+              start={vec(0, 0)}
+              end={vec(WIDTH, WIDTH)}
+              colors={
+                faceColor ? [faceColor] : theme ? theme : ClockThemes.Default!
+              }
+            />
+            <BlurMask blur={faceBlurMask} style="inner" />
+          </>
+        </ClockFace>
 
         <Group origin={{ x: R, y: R }} transform={secondsRotation}>
           <Line
@@ -160,23 +189,24 @@ export function Clock({
 }
 
 export interface ClockFaceProps
-  extends Pick<ClockProps, 'faceColor' | 'faceShape'> {}
+  extends Pick<ClockProps, 'faceColor' | 'faceShape'> {
+  children: ReactChild;
+}
 
-export function ClockFace({ faceColor, faceShape }: ClockFaceProps) {
+export function ClockFace({ faceShape, children }: ClockFaceProps) {
   if (faceShape === FaceShape.Circle) {
-    return <Circle cx={R} cy={R} r={R} color={faceColor} />;
+    return (
+      <Circle cx={R} cy={R} r={R}>
+        {children}
+      </Circle>
+    );
   }
 
   if (faceShape === FaceShape.Square) {
     return (
-      <RoundedRect
-        x={0}
-        y={0}
-        width={WIDTH}
-        height={HEIGHT}
-        r={4}
-        color={faceColor}
-      />
+      <RoundedRect x={0} y={0} width={WIDTH} height={HEIGHT} r={4}>
+        {children}
+      </RoundedRect>
     );
   }
 
