@@ -20,7 +20,19 @@ export default function App() {
           component={Home}
           options={{ headerShown: false }}
         />
-        <Stack.Screen name="ClockExample" component={ClockExample} />
+        <Stack.Screen
+          name="ClockExample"
+          component={ClockExample}
+          options={(props) => {
+            const { route } = props;
+
+            return {
+              headerTransparent: true,
+              headerTintColor: 'white',
+              headerTitle: route.params.example,
+            };
+          }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
