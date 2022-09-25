@@ -56,7 +56,7 @@ export function Clock({
   const font = useFont(require('../fonts/digital-7.ttf'), 30);
 
   const animatedSensor = useAnimatedSensor(SensorType.ROTATION, {
-    interval: 100,
+    interval: 'auto',
   });
 
   const rotation = useSpring(animatedSensor.sensor.value.roll, {
@@ -135,7 +135,7 @@ export function Clock({
                 end={vectorAnimated}
                 colors={['#1F4690', '#0F0E0E']}
               />
-              <BlurMask blur={20} style="inner" />
+              <BlurMask blur={15} style="inner" />
             </>
           </ClockFace>
 
