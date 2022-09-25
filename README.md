@@ -38,6 +38,8 @@ export default function App() {
 }
 ```
 
+Take a look to the [example](./example/) folder where there are different examples of the clock's theming usage .
+
 ## Library Under Construction 🚧
 
 This library is still under construction, more customisable elements for the clocks are coming soon.
