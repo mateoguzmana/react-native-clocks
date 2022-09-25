@@ -15,6 +15,7 @@ import {
 
 const WIDTH = 256;
 const HEIGHT = 256;
+const PADDING = 5;
 
 const ONE_SECOND_IN_MS = 1000;
 const ONE_MINUTE_IN_MS = ONE_SECOND_IN_MS * 60;
@@ -112,7 +113,7 @@ export function Clock({
   if (!font) return null;
 
   return (
-    <Canvas style={{ width: WIDTH, height: HEIGHT }}>
+    <Canvas style={{ width: WIDTH, height: WIDTH + PADDING }}>
       <Group transform={[{ scale }]} origin={{ x: WIDTH / 2, y: HEIGHT / 2 }}>
         <ClockFace faceShape={faceShape}>
           <>
