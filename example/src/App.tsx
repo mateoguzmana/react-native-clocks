@@ -27,8 +27,10 @@ export default function App() {
             const { route } = props;
 
             return {
-              headerTransparent: true,
               headerTintColor: 'white',
+              headerStyle: {
+                backgroundColor: '#121212',
+              },
               headerTitle: route.params.example,
             };
           }}
