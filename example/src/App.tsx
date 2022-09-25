@@ -19,6 +19,34 @@ export default function App() {
         </View>
       </View>
 
+      <View style={styles.row}>
+        <View style={styles.column}>
+          <Clock theme={ClockThemes.Chocolate} scale={0.33} />
+        </View>
+
+        <View style={styles.column}>
+          <Clock theme={ClockThemes.Rainbow} scale={0.33} />
+        </View>
+
+        <View style={styles.column}>
+          <Clock theme={ClockThemes.Ice} scale={0.33} />
+        </View>
+      </View>
+
+      <View style={styles.row}>
+        <View style={styles.column}>
+          <Clock theme={ClockThemes.Retro} scale={0.33} />
+        </View>
+
+        <View style={styles.column}>
+          <Clock theme={ClockThemes.Christmas} scale={0.33} />
+        </View>
+
+        <View style={styles.column}>
+          <Clock theme={ClockThemes.Halloween} scale={0.33} />
+        </View>
+      </View>
+
       <View style={styles.digitalClock}>
         <DigitalClock />
       </View>
@@ -37,7 +65,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     alignContent: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    height: 130,
   },
   column: {
     alignItems: 'center',

@@ -28,10 +28,16 @@ const NUMBER_OF_HOURS = 12;
 
 const R = WIDTH / 2;
 
-export const ClockThemes: Record<string, Array<string>> = {
+export const ClockThemes = {
+  Default: ['#fff'],
   Dark: ['#1F4690', '#0F0E0E'],
   Fire: ['#E02401', '#F78812', '#E02401'],
-  Default: ['#fff'],
+  Chocolate: ['#603601', '#483434r'],
+  Rainbow: ['#E40303', '#FF8C00', '#FFED00', '#008026', '#24408E', '#732982'],
+  Ice: ['#8BBCCC', '#4C6793'],
+  Retro: ['#31E1F7', '#400D51', '#D800A6', '#FF7777'],
+  Christmas: ['#810000', '#557C55', '#810000'],
+  Halloween: ['#000000', '#F58840', '#000000'],
 };
 
 function degreesToRadians(degrees: number) {
