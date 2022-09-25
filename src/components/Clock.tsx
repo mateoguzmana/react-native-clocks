@@ -1,4 +1,5 @@
 import React, { ReactChild, useEffect, useState } from 'react';
+import { Pressable } from 'react-native';
 import {
   BlurMask,
   Canvas,
@@ -15,6 +16,7 @@ import {
 
 const WIDTH = 256;
 const HEIGHT = 256;
+const PADDING = 5;
 
 const ONE_SECOND_IN_MS = 1000;
 const ONE_MINUTE_IN_MS = ONE_SECOND_IN_MS * 60;
@@ -62,6 +64,7 @@ export interface ClockProps {
    */
   theme?: Array<string>;
   faceBlurMask?: number;
+  onPress?(): void;
 }
 
 export function Clock({
@@ -70,6 +73,7 @@ export function Clock({
   theme = ClockThemes.Default,
   faceColor = undefined,
   faceBlurMask = 10,
+  onPress,
 }: ClockProps) {
   const font = useFont(require('../fonts/digital-7.ttf'), 30);
 
@@ -112,8 +116,8 @@ export function Clock({
   if (!font) return null;
 
   return (
-    <Canvas style={{ width: WIDTH, height: HEIGHT }}>
-      <Group transform={[{ scale }]} origin={{ x: WIDTH / 2, y: HEIGHT / 2 }}>
+    <Pressable style={{ transform: [{ scale }] }} onPress={onPress}>
+      <Canvas style={{ width: WIDTH, height: WIDTH + PADDING }}>
         <ClockFace faceShape={faceShape}>
           <>
             <LinearGradient
@@ -189,8 +193,8 @@ export function Clock({
           style="stroke"
           strokeWidth={3}
         />
-      </Group>
-    </Canvas>
+      </Canvas>
+    </Pressable>
   );
 }
 
