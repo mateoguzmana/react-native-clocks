@@ -2,8 +2,7 @@
 
 <p align="center">React Native customisable clocks built with <a href="https://github.com/Shopify/react-native-skia" target="_blank">@shopify/react-native-skia</a></p>
 
-![React Native Clocks](https://user-images.githubusercontent.com/20783123/190919781-eb2fdbfd-f3bb-49c7-ac60-779abcadb7f3.gif)
-
+![React Native Clocks](https://user-images.githubusercontent.com/20783123/192152085-f14f5025-c7e0-48e3-b0fd-899edeb5944f.jpg)
 
 ## Installation
 
