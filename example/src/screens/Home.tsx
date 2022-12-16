@@ -29,35 +29,63 @@ export function Home() {
         </View>
 
         <View style={styles.column}>
-          <Clock theme={ClockThemes.Dark} scale={0.33} onPress={() => navigateToExample('Dark')}/>
+          <Clock
+            theme={ClockThemes.Dark}
+            scale={0.33}
+            onPress={() => navigateToExample('Dark')}
+          />
         </View>
       </View>
 
       <View style={styles.row}>
         <View style={styles.column}>
-          <Clock theme={ClockThemes.Chocolate} scale={0.33} onPress={() => navigateToExample('Chocolate')} />
+          <Clock
+            theme={ClockThemes.Chocolate}
+            scale={0.33}
+            onPress={() => navigateToExample('Chocolate')}
+          />
         </View>
 
         <View style={styles.column}>
-          <Clock theme={ClockThemes.Rainbow} scale={0.33} onPress={() => navigateToExample('Rainbow')} />
+          <Clock
+            theme={ClockThemes.Rainbow}
+            scale={0.33}
+            onPress={() => navigateToExample('Rainbow')}
+          />
         </View>
 
         <View style={styles.column}>
-          <Clock theme={ClockThemes.Ice} scale={0.33} onPress={() => navigateToExample('Ice')} />
+          <Clock
+            theme={ClockThemes.Ice}
+            scale={0.33}
+            onPress={() => navigateToExample('Ice')}
+          />
         </View>
       </View>
 
       <View style={styles.row}>
         <View style={styles.column}>
-          <Clock theme={ClockThemes.Retro} scale={0.33} onPress={() => navigateToExample('Retro')} />
+          <Clock
+            theme={ClockThemes.Retro}
+            scale={0.33}
+            onPress={() => navigateToExample('Retro')}
+          />
         </View>
 
         <View style={styles.column}>
-          <Clock theme={ClockThemes.Christmas} scale={0.33} onPress={() => navigateToExample('Christmas')}/>
+          <Clock
+            theme={ClockThemes.Christmas}
+            scale={0.33}
+            onPress={() => navigateToExample('Christmas')}
+          />
         </View>
 
         <View style={styles.column}>
-          <Clock theme={ClockThemes.Halloween} scale={0.33} onPress={() => navigateToExample('Halloween')} />
+          <Clock
+            theme={ClockThemes.Halloween}
+            scale={0.33}
+            onPress={() => navigateToExample('Halloween')}
+          />
         </View>
       </View>
 
