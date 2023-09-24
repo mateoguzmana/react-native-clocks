@@ -18,6 +18,8 @@ const WIDTH = 256;
 const HEIGHT = 256;
 const PADDING = 5;
 
+const ONE_SECOND_IN_MS = 1000;
+
 const SECOND_HANDLE_SIZE = 0.09;
 const MINUTE_HANDLE_SIZE = 0.09;
 const HOUR_HANDLE_SIZE = 0.5;
@@ -78,7 +80,7 @@ export function Clock({
   useEffect(() => {
     const mainInterval = setInterval(() => {
       setDate(new Date());
-    }, 5);
+    }, ONE_SECOND_IN_MS);
     return () => {
       clearInterval(mainInterval);
     };
