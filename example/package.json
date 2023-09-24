@@ -11,9 +11,9 @@
     "start": "expo start"
   },
   "dependencies": {
-    "@react-navigation/native": "^6.0.13",
-    "@react-navigation/native-stack": "^6.9.0",
-    "@react-navigation/stack": "^6.3.1",
+    "@react-navigation/native": "^6.1.7",
+    "@react-navigation/native-stack": "^6.9.13",
+    "@react-navigation/stack": "^6.3.17",
     "@shopify/react-native-skia": "0.1.196",
     "expo": "^49.0.0",
     "expo-splash-screen": "~0.20.5",
