@@ -19,8 +19,6 @@ const HEIGHT = 256;
 const PADDING = 5;
 
 const ONE_SECOND_IN_MS = 1000;
-const ONE_MINUTE_IN_MS = ONE_SECOND_IN_MS * 60;
-const ONE_HOUR_IN_MS = ONE_MINUTE_IN_MS * 60;
 
 const SECOND_HANDLE_SIZE = 0.09;
 const MINUTE_HANDLE_SIZE = 0.09;
@@ -94,28 +92,34 @@ export function Clock({
   }, [currentHours]);
 
   useEffect(() => {
-    const increaseSeconds = setInterval(() => {
-      setCurrentSeconds((val) => val + 1);
-    }, ONE_SECOND_IN_MS);
+    const mainInterval = setInterval(() => {
+      const scopedDate = new Date();
+      const scopedSeconds = scopedDate.getSeconds();
+      const scopedMinutes = scopedDate.getMinutes();
+      const scopedHours = scopedDate.getHours();
 
-    const increaseMinutes = setInterval(() => {
-      setCurrentMinutes((val) => val + 1);
-    }, ONE_MINUTE_IN_MS);
+      if (currentSeconds !== scopedSeconds) {
+        setCurrentSeconds(scopedDate.getSeconds());
+      }
 
-    const increaseHours = setInterval(() => {
-      setCurrentHours((val) => val + 1);
-    }, ONE_HOUR_IN_MS);
+      if (scopedSeconds === 0 && currentMinutes !== scopedMinutes) {
+        setCurrentMinutes(scopedDate.getMinutes());
+      }
+
+      if (scopedHours === 0 && currentHours !== scopedHours) {
+        setCurrentHours(scopedDate.getHours());
+      }
+    }, ONE_SECOND_IN_MS / 4);
 
     return () => {
-      clearInterval(increaseSeconds);
-      clearInterval(increaseMinutes);
-      clearInterval(increaseHours);
+      clearInterval(mainInterval);
     };
-  }, [setCurrentSeconds]);
+  }, [currentHours, currentMinutes, currentSeconds]);
 
   if (!font) return null;
 
   return (
+    // @ts-expect-error Canvas isn't a valid JSX element...
     <Pressable style={{ transform: [{ scale }] }} onPress={onPress}>
       <Canvas style={{ width: WIDTH, height: WIDTH + PADDING }}>
         <ClockFace faceShape={faceShape}>
