@@ -18,8 +18,6 @@ const WIDTH = 256;
 const HEIGHT = 256;
 const PADDING = 5;
 
-const ONE_SECOND_IN_MS = 1000;
-
 const SECOND_HANDLE_SIZE = 0.09;
 const MINUTE_HANDLE_SIZE = 0.09;
 const HOUR_HANDLE_SIZE = 0.5;
@@ -75,46 +73,28 @@ export function Clock({
 }: ClockProps) {
   const font = useFont(require('../fonts/digital-7.ttf'), 30);
 
-  const [currentSeconds, setCurrentSeconds] = useState(new Date().getSeconds());
-  const [currentMinutes, setCurrentMinutes] = useState(new Date().getMinutes());
-  const [currentHours, setCurrentHours] = useState(new Date().getHours());
-
-  const secondsRotation = useComputedValue(() => {
-    return [{ rotate: degreesToRadians(currentSeconds * 6) }];
-  }, [currentSeconds]);
-
-  const minutesRotation = useComputedValue(() => {
-    return [{ rotate: degreesToRadians(currentMinutes * 6) }];
-  }, [currentMinutes]);
-
-  const hoursRotation = useComputedValue(() => {
-    return [{ rotate: degreesToRadians(currentHours * 30) }];
-  }, [currentHours]);
+  const [date, setDate] = useState(new Date());
 
   useEffect(() => {
     const mainInterval = setInterval(() => {
-      const scopedDate = new Date();
-      const scopedSeconds = scopedDate.getSeconds();
-      const scopedMinutes = scopedDate.getMinutes();
-      const scopedHours = scopedDate.getHours();
-
-      if (currentSeconds !== scopedSeconds) {
-        setCurrentSeconds(scopedDate.getSeconds());
-      }
-
-      if (scopedSeconds === 0 && currentMinutes !== scopedMinutes) {
-        setCurrentMinutes(scopedDate.getMinutes());
-      }
-
-      if (scopedHours === 0 && currentHours !== scopedHours) {
-        setCurrentHours(scopedDate.getHours());
-      }
-    }, ONE_SECOND_IN_MS / 4);
-
+      setDate(new Date());
+    }, 5);
     return () => {
       clearInterval(mainInterval);
     };
-  }, [currentHours, currentMinutes, currentSeconds]);
+  }, []);
+
+  const secondsRotation = useComputedValue(() => {
+    return [{ rotate: degreesToRadians(date.getSeconds() * 6) }];
+  }, [date]);
+
+  const minutesRotation = useComputedValue(() => {
+    return [{ rotate: degreesToRadians(date.getMinutes() * 6) }];
+  }, [date]);
+
+  const hoursRotation = useComputedValue(() => {
+    return [{ rotate: degreesToRadians(date.getHours() * 30) }];
+  }, [date]);
 
   if (!font) return null;
 
