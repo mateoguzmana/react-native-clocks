@@ -19,8 +19,6 @@ const HEIGHT = 256;
 const PADDING = 5;
 
 const ONE_SECOND_IN_MS = 1000;
-const ONE_MINUTE_IN_MS = ONE_SECOND_IN_MS * 60;
-const ONE_HOUR_IN_MS = ONE_MINUTE_IN_MS * 60;
 
 const SECOND_HANDLE_SIZE = 0.09;
 const MINUTE_HANDLE_SIZE = 0.09;
@@ -77,45 +75,33 @@ export function Clock({
 }: ClockProps) {
   const font = useFont(require('../fonts/digital-7.ttf'), 30);
 
-  const [currentSeconds, setCurrentSeconds] = useState(new Date().getSeconds());
-  const [currentMinutes, setCurrentMinutes] = useState(new Date().getMinutes());
-  const [currentHours, setCurrentHours] = useState(new Date().getHours());
-
-  const secondsRotation = useComputedValue(() => {
-    return [{ rotate: degreesToRadians(currentSeconds * 6) }];
-  }, [currentSeconds]);
-
-  const minutesRotation = useComputedValue(() => {
-    return [{ rotate: degreesToRadians(currentMinutes * 6) }];
-  }, [currentMinutes]);
-
-  const hoursRotation = useComputedValue(() => {
-    return [{ rotate: degreesToRadians(currentHours * 30) }];
-  }, [currentHours]);
+  const [date, setDate] = useState(new Date());
 
   useEffect(() => {
-    const increaseSeconds = setInterval(() => {
-      setCurrentSeconds((val) => val + 1);
+    const mainInterval = setInterval(() => {
+      setDate(new Date());
     }, ONE_SECOND_IN_MS);
-
-    const increaseMinutes = setInterval(() => {
-      setCurrentMinutes((val) => val + 1);
-    }, ONE_MINUTE_IN_MS);
-
-    const increaseHours = setInterval(() => {
-      setCurrentHours((val) => val + 1);
-    }, ONE_HOUR_IN_MS);
-
     return () => {
-      clearInterval(increaseSeconds);
-      clearInterval(increaseMinutes);
-      clearInterval(increaseHours);
+      clearInterval(mainInterval);
     };
-  }, [setCurrentSeconds]);
+  }, []);
+
+  const secondsRotation = useComputedValue(() => {
+    return [{ rotate: degreesToRadians(date.getSeconds() * 6) }];
+  }, [date]);
+
+  const minutesRotation = useComputedValue(() => {
+    return [{ rotate: degreesToRadians(date.getMinutes() * 6) }];
+  }, [date]);
+
+  const hoursRotation = useComputedValue(() => {
+    return [{ rotate: degreesToRadians(date.getHours() * 30) }];
+  }, [date]);
 
   if (!font) return null;
 
   return (
+    // @ts-ignore Canvas isn't a valid JSX element...
     <Pressable style={{ transform: [{ scale }] }} onPress={onPress}>
       <Canvas style={{ width: WIDTH, height: WIDTH + PADDING }}>
         <ClockFace faceShape={faceShape}>
