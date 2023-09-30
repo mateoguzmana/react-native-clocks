@@ -1,4 +1,5 @@
-import React, { ReactChild, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import type { ReactChild } from 'react';
 import { Pressable } from 'react-native';
 import {
   BlurMask,
@@ -101,12 +102,9 @@ export function Clock({
   if (!font) return null;
 
   return (
-    // @ts-ignore Pressable isn't a valid JSX element...
     <Pressable style={{ transform: [{ scale }] }} onPress={onPress}>
-      {/* @ts-ignore Canvas isn't a valid JSX element... */}
       <Canvas style={{ width: WIDTH, height: WIDTH + PADDING }}>
         <ClockFace faceShape={faceShape}>
-          {/* @ts-ignore Element isn't a valid JSX element... */}
           <>
             <LinearGradient
               start={vec(0, 0)}
