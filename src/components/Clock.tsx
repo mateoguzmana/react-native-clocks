@@ -101,7 +101,7 @@ export function Clock({
   if (!font) return null;
 
   return (
-    // @ts-expect-error Canvas isn't a valid JSX element...
+    // @ts-ignore Canvas isn't a valid JSX element...
     <Pressable style={{ transform: [{ scale }] }} onPress={onPress}>
       <Canvas style={{ width: WIDTH, height: WIDTH + PADDING }}>
         <ClockFace faceShape={faceShape}>
