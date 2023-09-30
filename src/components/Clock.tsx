@@ -41,7 +41,7 @@ export const ClockThemes = {
 };
 
 function degreesToRadians(degrees: number) {
-  var pi = Math.PI;
+  const pi = Math.PI;
   return degrees * (pi / 180);
 }
 
@@ -101,10 +101,12 @@ export function Clock({
   if (!font) return null;
 
   return (
-    // @ts-ignore Canvas isn't a valid JSX element...
+    // @ts-ignore Pressable isn't a valid JSX element...
     <Pressable style={{ transform: [{ scale }] }} onPress={onPress}>
+      {/* @ts-ignore Canvas isn't a valid JSX element... */}
       <Canvas style={{ width: WIDTH, height: WIDTH + PADDING }}>
         <ClockFace faceShape={faceShape}>
+          {/* @ts-ignore Element isn't a valid JSX element... */}
           <>
             <LinearGradient
               start={vec(0, 0)}
