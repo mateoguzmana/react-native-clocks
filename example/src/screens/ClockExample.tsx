@@ -1,7 +1,8 @@
 import React from 'react';
 import { ImageBackground, StyleSheet, View } from 'react-native';
 import { Clock, ClockThemes } from 'react-native-clocks';
-import { RouteProp, useRoute } from '@react-navigation/native';
+import { useRoute } from '@react-navigation/native';
+import type { RouteProp } from '@react-navigation/native';
 import type { RootStackParamList } from '../App';
 
 type ClockExampleScreenNavigationProp = RouteProp<
