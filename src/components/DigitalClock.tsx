@@ -47,14 +47,12 @@ export function DigitalClock({
   const widthForFullNumbers = font.getTextWidth('00:00:00');
 
   return (
-    // @ts-ignore View isn't a valid JSX element...
     <View
       style={[
         styles.container,
         { backgroundColor, width: widthForFullNumbers + PADDING },
       ]}
     >
-      {/* @ts-ignore Canvas isn't a valid JSX element... */}
       <Canvas style={{ width: textWidth, height: fontSize }}>
         <Text
           y={fontSize * 0.8}
